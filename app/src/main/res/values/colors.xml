@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="orange">#FF5722</color>
+    <color name="grey">#767676</color>
+
+    <color name="user_card_background">#ffffff</color>
+    <color name="follow_button_background">#000000</color>
+    <color name="follow_button_text">#ffffff</color>
+    <color name="user_name_color">#000000</color>
+    <color name="unfollow_button_background">#f3f3f3</color>
+    <color name="unfollow_button_text">#333333</color>
+    <color name="image_border">#1A000000</color>
+</resources>

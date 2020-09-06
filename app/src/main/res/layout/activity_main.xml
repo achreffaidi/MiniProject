@@ -39,7 +39,7 @@
             android:text="isLive" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/checkBox_hasImageUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="hasImage (URL)" />
@@ -50,7 +50,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:text="Achraf Feydi" />
 
         <EditText
             android:id="@+id/editText_location"
@@ -58,7 +59,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Location"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:text="Tunis" />
 
         <EditText
             android:id="@+id/editText_follower"
@@ -66,7 +68,14 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Followers"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="222" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="* After the button Click there's a 1000ms delay to simulate API call" />
 
     </LinearLayout>
 

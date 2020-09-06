@@ -27,35 +27,48 @@ class UserCard (context: Context,attributes: AttributeSet) : ConstraintLayout(co
     private var button : Button
     private var image : ImageView
 
+    var adapterOnFollowButtonClick: (()->Unit)? = null
+    var textFormater: ((Int)->String) = {number -> number.toString()+" Followers" } //Default Text Formatter
+
     var numberOfFollowers = 0 // Note: the initializer assigns the backing field directly
         set(value) {
             if (value >= 0) field = value
-            recomputeView()
+            updateNumberOfFollowers()
         }
-    var userName : String = "Artist Name" // Note: the initializer assigns the backing field directly
+    var userName : String = ""
         set(value) {
             if (value.isNotBlank()) field = value
-            recomputeView()
+            updateUserName()
         }
-    var location : String = "Location" // Note: the initializer assigns the backing field directly
+    var location : String = ""
         set(value) {
-            if (value.isNotBlank()) field = value
-            recomputeView()
+            field = value
+            updateLocation()
         }
     var isLive : Boolean = false
         set(value){
             field = value
-            recomputeView()
+            updateIsLive()
         }
-    var imageUrl : String = ""
+    var imageUrl : String? = null
         set(value){
             field = value
-            recomputeView()
+            updateImage()
         }
     var isFollowing = false
         set(value){
             field = value
-            recomputeView()
+            updateIsFollowing()
+        }
+    var buttonTextFollow : String ="Follow"
+        set(value){
+            field = value
+            if(!isFollowing) button.text = value
+        }
+    var buttonTextUnFollow : String ="Following"
+        set(value){
+            field = value
+            if(isFollowing) button.text = value
         }
 
 
@@ -72,48 +85,58 @@ class UserCard (context: Context,attributes: AttributeSet) : ConstraintLayout(co
         image = view.findViewById(R.id.imageView_user)
 
         button.setOnClickListener {
-            this.isFollowing = !isFollowing
-            recomputeView()
+            adapterOnFollowButtonClick?.invoke()
         }
-        recomputeView()
+        initialiseFields()
     }
 
-    fun recomputeView(){
+    private fun initialiseFields() {
+        updateIsFollowing()
+        updateImage()
+        updateIsLive()
+        updateLocation()
+        updateUserName()
+        updateNumberOfFollowers()
+    }
 
+    fun updateUserName(){
         userNameView.text = userName
-        followersView.text = numberOfFollowers.toString() + " Followers"
-
+    }
+    fun updateNumberOfFollowers(){
+        followersView.text = textFormater(numberOfFollowers)
+    }
+    fun updateLocation(){
         if(location.isBlank()){
             locationView.visibility = TextView.GONE
         }else{
             locationView.visibility = TextView.VISIBLE
             locationView.text = location
         }
-
+    }
+    fun updateIsLive(){
         if(isLive) {
             liveIndicatorView.visibility = View.VISIBLE
         }else{
             liveIndicatorView.visibility = View.INVISIBLE
         }
-
+    }
+    fun updateIsFollowing(){
         if(isFollowing){
-            button.text = "unfollow"
+            button.text = buttonTextUnFollow
             button.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.unfollow_button_background)));
             button.setTextColor(resources.getColor(R.color.unfollow_button_text))
         }else{
-            button.text = "follow"
+            button.text = buttonTextFollow
             button.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.follow_button_background)));
             button.setTextColor(resources.getColor(R.color.follow_button_text))
         }
-
-        try{
-            if(imageUrl.isNotBlank()){
-                Picasso.get().load("https://media.wired.com/photos/5cdefb92b86e041493d389df/191:100/w_1280,c_limit/Culture-Grumpy-Cat-487386121.jpg").placeholder(R.drawable.avatar_placeholder_light).into(imageView_user);
-            }
-        }catch (e:Exception){
-                print(e.message)
+    }
+    fun updateImage(){
+        if(imageUrl!=null){
+            Picasso.get().load(imageUrl).error(R.drawable.ic_launcher_background).placeholder(R.drawable.avatar_placeholder_light).into(imageView_user);
+        }else{
+            Picasso.get().load(R.drawable.avatar_placeholder_light).into(imageView_user)
         }
-
     }
 
 }

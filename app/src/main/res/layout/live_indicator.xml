@@ -21,6 +21,8 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="1"
+        android:fontFamily="sans-serif-medium"
         android:text="Live"
-        android:textColor="@color/orange" />
+        android:textColor="@color/orange"
+        android:textSize="12sp" />
 </LinearLayout>

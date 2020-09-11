@@ -75,9 +75,9 @@
                 android:id="@+id/artist_name_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
                 android:text="Artist Name"
-                android:textColor="@color/user_name_color"
-                android:textStyle="bold" />
+                android:textColor="@color/user_name_color" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -89,8 +89,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
                     android:text="Location"
-                    android:textColor="@color/grey" />
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
 
                 <include
                     android:id="@+id/live_indicator"
@@ -133,9 +135,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:capitalize="words"
+            android:fontFamily="sans-serif-medium"
             android:text="Follow"
+            android:textAllCaps="false"
             android:textColor="@color/follow_button_text"
-            android:textStyle="bold"
             app:backgroundTint="@color/follow_button_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

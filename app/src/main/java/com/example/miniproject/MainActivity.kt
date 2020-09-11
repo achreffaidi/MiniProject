@@ -49,15 +49,15 @@ class MainActivity : AppCompatActivity() {
             Handler().postDelayed({
                 isFollowing = !isFollowing
                 userComponent.isFollowing = isFollowing
-            }, 1000)
+            }, 1000) //1000ms delay to simulate API call
         }
-        userComponent.textFormater = {
-            it -> formatText(it)
+        userComponent.textFormatter = {
+            it -> textFormatter(it)
         }
        
     }
 
-    private fun formatText(number :Int):String{
+    private fun textFormatter(number :Int):String{
         if(number==1) return "1 Follower"
         return "$number Followers"
     }

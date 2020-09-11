@@ -1,22 +1,16 @@
 package com.example.miniproject.component
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.miniproject.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.user_component.view.*
-import java.io.InputStream
-import java.lang.Exception
-import java.net.URL
 
 class UserCard (context: Context,attributes: AttributeSet) : ConstraintLayout(context,attributes){
 
@@ -28,8 +22,9 @@ class UserCard (context: Context,attributes: AttributeSet) : ConstraintLayout(co
     private var image : ImageView
 
     var adapterOnFollowButtonClick: (()->Unit)? = null
-    var textFormater: ((Int)->String) = {number -> number.toString()+" Followers" } //Default Text Formatter
 
+    //TextFormatter will make it easier to do Localization
+    var textFormatter: ((Int)->String) = { number -> "$number Followers" } //Default Text Formatter
     var numberOfFollowers = 0 // Note: the initializer assigns the backing field directly
         set(value) {
             if (value >= 0) field = value
@@ -60,6 +55,7 @@ class UserCard (context: Context,attributes: AttributeSet) : ConstraintLayout(co
             field = value
             updateIsFollowing()
         }
+    //Giving the ability to change ButtonText will help in supporting Localization
     var buttonTextFollow : String ="Follow"
         set(value){
             field = value
@@ -99,13 +95,13 @@ class UserCard (context: Context,attributes: AttributeSet) : ConstraintLayout(co
         updateNumberOfFollowers()
     }
 
-    fun updateUserName(){
+    private fun updateUserName(){
         userNameView.text = userName
     }
-    fun updateNumberOfFollowers(){
-        followersView.text = textFormater(numberOfFollowers)
+    private fun updateNumberOfFollowers(){
+        followersView.text = textFormatter(numberOfFollowers)
     }
-    fun updateLocation(){
+    private fun updateLocation(){
         if(location.isBlank()){
             locationView.visibility = TextView.GONE
         }else{
@@ -113,14 +109,14 @@ class UserCard (context: Context,attributes: AttributeSet) : ConstraintLayout(co
             locationView.text = location
         }
     }
-    fun updateIsLive(){
+    private fun updateIsLive(){
         if(isLive) {
             liveIndicatorView.visibility = View.VISIBLE
         }else{
             liveIndicatorView.visibility = View.INVISIBLE
         }
     }
-    fun updateIsFollowing(){
+    private fun updateIsFollowing(){
         if(isFollowing){
             button.text = buttonTextUnFollow
             button.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.unfollow_button_background)));
@@ -131,7 +127,7 @@ class UserCard (context: Context,attributes: AttributeSet) : ConstraintLayout(co
             button.setTextColor(resources.getColor(R.color.follow_button_text))
         }
     }
-    fun updateImage(){
+    private fun updateImage(){
         if(imageUrl!=null){
             Picasso.get().load(imageUrl).error(R.drawable.ic_launcher_background).placeholder(R.drawable.avatar_placeholder_light).into(imageView_user);
         }else{
